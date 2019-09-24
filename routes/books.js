@@ -1,18 +1,15 @@
 //Require express
 const express = require('express');
 const router = express.Router();
-const books = require('../models/book'); // require the Book model
-
 
 //Book model
 const Book = require("../models").Book;
 
-//GET books listing will retrieve all of the books order from desc order. 
+//GET books listing will retrieve all books from desc order. 
 router.get('/', function (req, res, next) {
     let pg = req.query.page;
     Book.findAll({ orderBy: [["createdAt", "DESC"]] }).then(function (books) {
         res.render("index", { books: books });
-        res.locals.books = books
     }).catch(function (error) {
         res.send(500, error);
     });
@@ -20,12 +17,12 @@ router.get('/', function (req, res, next) {
 
 
 
-//GET /books/new - Display the create new book form
+//GET - Display the create new book form
 router.get('/new', (req, res) =>
     res.render('new_book', { book: Book.build(), pageTitle: "New Book" })
 );
 
-//POST /books/new - Posts a new book to the database
+//POST - Posts a new book to the database
 router.post('/new', (req, res, next) => {
     Book.create(req.body).then(function (book) {
         let { title, author, genre, year } = req.body;
@@ -101,7 +98,7 @@ router.post('/:id', (req, res, next) => {
         });
 });
 
-//Delete 
+//Deletes 
 
 router.post("/:id/delete", function (req, res, next) {
     Book.findByPk(req.params.id).then(function (book) {

@@ -4,17 +4,9 @@ var app = express();
 // Requires body-parser
 var bodyParser = require('body-parser');
 var path = require('path');
-var routes = require('./models/index');
-var books = require('./models/books')
+var routes = require('./routes/index');
+var books = require('./routes/books')
 
-//Require database
-// const db = require('./models/book').sequelize;
-// module.exports = (app, db) => {
-//     console.log(books);
-//     app.get("/all_books", (req, res) =>
-//     db.post.findAll().then((result) => res.json(result))
-//     );
-// }
 
 // view engine setup
 // app.set('view')
@@ -28,7 +20,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Routes
 app.use('/', routes);
 app.use('/books', books);
-router.use('/', (req, res) => res.redirect('/books'));
+
 
 
 // catch 404 and forward to error handler
@@ -47,7 +39,7 @@ if (app.get('env') === 'development') {
     res.status(err.status || 500);
     res.render('error', {
       message: err.message,
-      error: err0l
+      error: err
     });
   });
 }
@@ -60,6 +52,12 @@ app.use(function(err, req, res, next) {
     message: err.message,
     error: {}
   });
+});
+
+
+//** */Server listens for the app
+app.listen(3000, ()=>{
+  console.log('App running on port 3000')
 });
 
 

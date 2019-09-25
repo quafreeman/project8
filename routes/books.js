@@ -67,7 +67,8 @@ router.get('/:id', (req, res, next) => {
             }
         })
         .catch(err => {
-            res.render('error', { pageTitle: "Server Error" });
+            res.render('error');
+            res.send(500);
         });
 });
 

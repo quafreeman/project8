@@ -1,2 +1,2 @@
-# project8
+# project8 - Book DB
  
